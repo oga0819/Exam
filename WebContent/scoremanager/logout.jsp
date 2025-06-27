@@ -4,9 +4,6 @@
     <c:param name="title">得点管理システム</c:param>
     <c:param name="content">
         <section class="logout-section">
-            <div class="logout-row">
-                <span class="logout-label">ログアウト</span>
-            </div>
             <div class="logout-message">
                 ログアウトしました
             </div>
