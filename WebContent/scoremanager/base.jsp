@@ -1,11 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
+<%@include file="../header.html" %>
     <meta charset="UTF-8">
     <title><c:out value="${param.title}" /></title>
-    <link rel="stylesheet" href="../css/menu.css">
+    <c:if test="${empty param.nobasecss}">
+	</c:if>
     <c:if test="${not empty param.scripts}">
       ${param.scripts}
     </c:if>
