@@ -1,5 +1,7 @@
 package scoremanager;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,17 +15,20 @@ import tool.Action;
 public class StudentCreateAction extends Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession();
-        Teacher teacher = (Teacher) session.getAttribute("teacher");
+        int currentYear = LocalDate.now().getYear();
+        List<Integer> entYearSet = new ArrayList<>();
+        for (int i = currentYear - 10; i <= currentYear + 10; i++) {
+            entYearSet.add(i);
+        }
 
-        // ClassNumDAOのfilterはList<String>を返す
+        HttpSession session = request.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("teacher"); // "teacher" に統一
+
         ClassNumDAO cNumDao = new ClassNumDAO();
         List<String> classNumList = cNumDao.filter(teacher.getSchool());
 
-        // 他のActionと同じ属性名でセットしておく
         request.setAttribute("class_num_set", classNumList);
-
-        // 必要に応じて他の初期値などもセット
+        request.setAttribute("ent_year_set", entYearSet);
 
         return "student_create.jsp";
     }

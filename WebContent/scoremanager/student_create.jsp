@@ -13,16 +13,9 @@
         <div style="color:red">${error}</div>
     </c:if>
 
-    <form action="student_create_execute.action" method="post">
+    <form action="StudentCreateExecute.action" method="post">
         <table>
-            <tr>
-                <th>学生番号</th>
-                <td><input type="text" name="no" value="${param.no}" required></td>
-            </tr>
-            <tr>
-                <th>氏名</th>
-                <td><input type="text" name="name" value="${param.name}" required></td>
-            </tr>
+
             <tr>
                 <th>入学年度</th>
                 <td>
@@ -33,6 +26,16 @@
                     </select>
                 </td>
             </tr>
+
+            <tr>
+                <th>学生番号</th>
+                <td><input type="text" name="no" value="${param.no}" required></td>
+            </tr>
+            <tr>
+                <th>氏名</th>
+                <td><input type="text" name="name" value="${param.name}" required></td>
+            </tr>
+
             <tr>
                 <th>クラス</th>
                 <td>
@@ -43,15 +46,9 @@
                     </select>
                 </td>
             </tr>
-            <tr>
-                <th>在籍</th>
-                <td>
-                    <input type="checkbox" name="is_attend" value="true"
-                        <c:if test="${param.is_attend == 'true' || empty param.is_attend}">checked</c:if> > 在籍中
-                </td>
-            </tr>
+
         </table>
-        <input type="submit" value="登録">
+        <input type="submit" value="登録して終了">
     </form>
 
     <p><a href="StudentList.action">学生一覧に戻る</a></p>
