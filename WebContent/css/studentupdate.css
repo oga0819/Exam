@@ -1,0 +1,136 @@
+/* ===== セクション全体 ===== */
+section {
+  background: #fcfcfc;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(100,120,150,0.08);
+  padding: 20px 24px 28px 24px;
+  margin: 18px 0 0 0;
+}
+form div {
+  margin-bottom: 15px; /* 下に15pxの間隔をあける */
+}
+
+/* ===== タイトル行 ===== */
+section > h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  background: #e8f0fb;
+  padding: 12px 30px;
+  margin: -20px -24px 18px -24px;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #d3e2f2;
+  letter-spacing: 1px;
+}
+
+/* ===== 入学年度、学生番号 ===== */
+input[readonly] {
+  border: none;
+  background-color: transparent; /* 背景透明 */
+}
+
+
+/* ===== 氏名、クラス===== */
+#name,
+#class_num{
+  width: 100%;
+  padding: 6px 8px;   /* 縦:6px, 横:8px の内側余白 */
+  border: 1px solid #e7e7e7;   /* 枠線の色 */
+  border-radius: 6px;   /* 角丸 */
+}
+
+/* ===== 在学中 ===== */
+input[type="checkbox"] {
+  accent-color: blue;
+  cursor: pointer;
+}
+
+/* ===== p ===== */
+p{
+	text-align: center;
+    background-color: rgba(50,205,50,0.5); /* 透明度50% */
+}
+
+
+/* ===== サイドバー・ヘッダー共通装飾（base.jsp用） ===== */
+.header-bar {
+  width: 100%;
+  background: #e8f0fb;
+  border-bottom: 1px solid #dbe6f7;
+  padding: 20px 0 10px 0;
+  box-sizing: border-box;
+  margin-bottom: 18px;
+}
+.header-inner {
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.header-title {
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #2c3e50;
+}
+.header-user {
+  font-size: 0.97em;
+  color: #444;
+}
+.header-logout {
+  color: #007bff;
+  margin-left: 10px;
+  font-size: 0.95em;
+  text-decoration: none;
+}
+.header-logout:hover {
+  text-decoration: underline;
+}
+
+/* ===== メインコンテナ ===== */
+.main-content {
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 420px;
+  display: flex;
+}
+
+/* ===== サイドメニュー ===== */
+.menu-side {
+  width: 120px;
+  padding-top: 12px;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+.menu-side a {
+  display: block;
+  margin-bottom: 14px;
+  color: #2c57a0;
+  font-size: 14px;
+  text-decoration: underline;
+  transition: color 0.14s;
+}
+.menu-side a:hover {
+  color: #0056b3;
+}
+
+/* ===== メイン中央部 ===== */
+.menu-center {
+  flex: 1;
+  background: none;
+}
+
+/* ===== フッター ===== */
+.footer-bar {
+  width: 100%;
+  background: #e6e6e6;
+  color: #888;
+  text-align: center;
+  padding: 18px 0 5px 0;
+  font-size: 13px;
+  margin-top: 50px;
+  border-top: 1px solid #dadada;
+}
