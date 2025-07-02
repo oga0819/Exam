@@ -25,8 +25,15 @@
         <nav class="menu-side">
             <a href="menu.jsp">メニュー</a>
             <a href="StudentList.action">学生管理</a>
+
+            <a href="TestRegist.action">成績管理</a>
+            <div style="padding-left: 20px;">
             <a href="TestRegist.action">成績登録</a>
+            </div>
+            <div style="padding-left: 20px;">
             <a href="TestList.action">成績参照</a>
+            </div>
+
             <a href="SubjectList.action">科目管理</a>
         </nav>
         <!-- 各ページごとの内容（contentパラメータ） -->
