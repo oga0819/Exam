@@ -5,14 +5,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDAO;
+import tool.Action;
 
-public class SubjectUpdateAction {
+public class SubjectUpdateAction extends Action {
+    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String cd = request.getParameter("cd");
-        School school = (School) request.getSession().getAttribute("school"); // セッションにSchoolが格納されている前提
+        // 教員セッションから学校情報を取得
+        Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+        if (teacher == null) {
+            request.setAttribute("error", "セッションが切れています。再度ログインしてください。");
+            return "login.jsp";
+        }
+        School school = teacher.getSchool();
 
-        if (cd == null || school == null) {
+        String cd = request.getParameter("cd");
+        if (cd == null || cd.trim().isEmpty()) {
             request.setAttribute("error", "不正なアクセスです。");
             return "error.jsp";
         }

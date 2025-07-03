@@ -1,64 +1,67 @@
 package scoremanager;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDAO;
+import tool.Action;
 
-public class SubjectCreateExecuteAction extends HttpServlet {
+public class SubjectCreateExecuteAction extends Action {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-        // 入力値取得
-        String cd = req.getParameter("cd");
-        String name = req.getParameter("name");
-        School school = (School) req.getSession().getAttribute("school");
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+        if (teacher == null) {
+            request.setAttribute("error", "セッションが切れています。再度ログインしてください。");
+            return "login.jsp";
+        }
+        School school = teacher.getSchool();
 
-        // 入力値設定
+        String cd = request.getParameter("cd");
+        String name = request.getParameter("name");
+
         Subject subject = new Subject();
         subject.setCd(cd);
         subject.setName(name);
         subject.setSchool(school);
 
+        // ★ ここで空チェック
+        if (cd == null || cd.trim().isEmpty()) {
+            request.setAttribute("error", "科目コードは必須です。");
+            request.setAttribute("subject", subject);
+            return "subject_create.jsp";
+        }
+        if (name == null || name.trim().isEmpty()) {
+            request.setAttribute("error", "科目名は必須です。");
+            request.setAttribute("subject", subject);
+            return "subject_create.jsp";
+        }
+
+        SubjectDAO dao = new SubjectDAO();
         try {
-            SubjectDAO dao = new SubjectDAO();
             // 重複チェック（既存科目の有無）
             Subject exists = dao.get(cd, school);
             if (exists != null) {
-                req.setAttribute("error", "その科目コードは既に登録されています。");
-                req.setAttribute("subject", subject);
-                // 新規登録画面へ戻す
-                req.getRequestDispatcher("/WebContent/scoremanager/subject_create.jsp").forward(req, res);
-                return;
+                request.setAttribute("error", "その科目コードは既に登録されています。");
+                request.setAttribute("subject", subject);
+                return "subject_create.jsp";
             }
 
             // 新規登録
             boolean result = dao.save(subject);
             if (result) {
-                // 完了画面へ
-                req.getRequestDispatcher("/WebContent/scoremanager/subject_create_done.jsp").forward(req, res);
+                return "subject_create_done.jsp";
             } else {
-                req.setAttribute("error", "登録に失敗しました。");
-                req.setAttribute("subject", subject);
-                req.getRequestDispatcher("/WebContent/scoremanager/subject_create.jsp").forward(req, res);
+                request.setAttribute("error", "登録に失敗しました。");
+                request.setAttribute("subject", subject);
+                return "subject_create.jsp";
             }
         } catch (Exception e) {
-            req.setAttribute("error", "エラーが発生しました: " + e.getMessage());
-            req.setAttribute("subject", subject);
-            req.getRequestDispatcher("/WebContent/scoremanager/subject_create.jsp").forward(req, res);
+            request.setAttribute("error", "エラーが発生しました: " + e.getMessage());
+            request.setAttribute("subject", subject);
+            return "subject_create.jsp";
         }
-    }
-
-    // GETリクエストは新規画面へリダイレクト
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-        res.sendRedirect("SubjectCreate.action");
     }
 }

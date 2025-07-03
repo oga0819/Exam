@@ -1,0 +1,223 @@
+/* ===== 学生新規登録ページ用（studentlist.cssと完全統一） ===== */
+
+/* ===== セクション全体 ===== */
+section,
+form,
+.form-container {
+  background: #fcfcfc;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(100,120,150,0.08);
+  padding: 20px 24px 28px 24px;
+  margin: 18px auto 0 auto;
+  width: 480px;
+  min-width: 320px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ===== タイトル行 ===== */
+section > h2,
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  background: #e8f0fb;
+  color: #222;
+  text-align: left;
+  padding: 12px 30px;
+  margin: -20px -24px 18px -24px;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #d3e2f2;
+  letter-spacing: 1px;
+}
+
+/* ===== エラー表示 ===== */
+.error {
+  margin-bottom: 18px;
+  color: #fff;
+  background: #ff5a5a;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 1em;
+  letter-spacing: 0.5px;
+}
+
+/* ===== 入力フォームテーブル ===== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 18px;
+  margin-bottom: 10px;
+  background: none;
+}
+
+th {
+  text-align: left;
+  color: #333;
+  font-weight: normal;
+  width: 110px;
+  font-size: 1em;
+  vertical-align: middle;
+  padding-top: 8px;
+}
+
+td {
+  padding-left: 0;
+}
+
+/* ===== 入力欄・セレクトボックス ===== */
+select,
+input[type="text"] {
+  width: 100%;
+  padding: 9px 8px;
+  font-size: 1em;
+  border: 1px solid #c6c6c6;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+select:focus,
+input[type="text"]:focus {
+  border-color: #3399ff;
+  outline: none;
+}
+
+input::placeholder {
+  color: #bbb;
+  font-size: 0.97em;
+}
+
+/* ===== ボタン ===== */
+input[type="submit"] {
+  background: #444;
+  color: #fff;
+  font-size: 1.05em;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 32px;
+  margin-top: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.09);
+  transition: background 0.2s;
+  letter-spacing: 1px;
+}
+
+input[type="submit"]:hover {
+  background: #3399ff;
+}
+
+/* ===== 戻るリンク ===== */
+a {
+  color: #3399ff;
+  text-decoration: underline;
+  font-size: 0.99em;
+  margin-left: 7px;
+}
+a:hover {
+  color: #2266bb;
+  text-decoration: underline;
+}
+
+/* ===== サイドバー・ヘッダー共通装飾（base.jsp用） ===== */
+.header-bar {
+  width: 100%;
+  background: #e8f0fb;
+  border-bottom: 1px solid #dbe6f7;
+  padding: 20px 0 10px 0;
+  box-sizing: border-box;
+  margin-bottom: 18px;
+}
+.header-inner {
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.header-title {
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #2c3e50;
+}
+.header-user {
+  font-size: 0.97em;
+  color: #444;
+}
+.header-logout {
+  color: #007bff;
+  margin-left: 10px;
+  font-size: 0.95em;
+  text-decoration: none;
+}
+.header-logout:hover {
+  text-decoration: underline;
+}
+
+/* ===== メインコンテナ ===== */
+.main-content {
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 420px;
+  display: flex;
+}
+
+/* ===== サイドメニュー ===== */
+.menu-side {
+  width: 120px;
+  padding-top: 12px;
+  margin-right: 24px;
+  flex-shrink: 0;
+}
+.menu-side a {
+  display: block;
+  margin-bottom: 14px;
+  color: #2c57a0;
+  font-size: 14px;
+  text-decoration: underline;
+  transition: color 0.14s;
+}
+.menu-side a:hover {
+  color: #0056b3;
+}
+
+/* ===== メイン中央部 ===== */
+.menu-center {
+  flex: 1;
+  background: none;
+}
+
+/* ===== フッター ===== */
+.footer-bar {
+  width: 100%;
+  background: #e6e6e6;
+  color: #888;
+  text-align: center;
+  padding: 18px 0 5px 0;
+  font-size: 13px;
+  margin-top: 50px;
+  border-top: 1px solid #dadada;
+}
+
+@media (max-width: 900px) {
+  section, .main-content, form, .form-container {
+    padding: 6px 2vw;
+    width: 98vw;
+    min-width: 0;
+    margin: 0 auto 0 auto;
+  }
+  h2, section > h2 {
+    font-size: 1.1em;
+    padding: 8px 8px;
+    margin: -6px -2vw 12px -2vw;
+  }
+  table th, table td {
+    width: auto;
+    font-size: 0.97em;
+  }
+}

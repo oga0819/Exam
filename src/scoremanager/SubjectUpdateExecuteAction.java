@@ -5,34 +5,60 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDAO;
+import tool.Action;
 
-public class SubjectUpdateExecuteAction {
+public class SubjectUpdateExecuteAction extends Action {
+    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 教員セッションから学校情報を取得
+        Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+        if (teacher == null) {
+            request.setAttribute("error", "セッションが切れています。再度ログインしてください。");
+            return "login.jsp";
+        }
+        School school = teacher.getSchool();
+
         String cd = request.getParameter("cd");
         String name = request.getParameter("name");
-        School school = (School) request.getSession().getAttribute("school"); // セッションにSchoolが格納されている前提
-
-        if (cd == null || name == null || name.trim().isEmpty() || school == null) {
-            request.setAttribute("error", "入力内容に誤りがあります。");
-            return "error.jsp";
-        }
 
         Subject subject = new Subject();
         subject.setCd(cd);
-        subject.setName(name);
         subject.setSchool(school);
+        subject.setName(name);
+
+        // 入力チェック
+        if (cd == null || cd.trim().isEmpty()) {
+            request.setAttribute("error", "科目コードは必須です。");
+            request.setAttribute("subject", subject);
+            return "subject_update.jsp";
+        }
+        if (name == null || name.trim().isEmpty()) {
+            request.setAttribute("error", "科目名は必須です。");
+            request.setAttribute("subject", subject);
+            return "subject_update.jsp";
+        }
 
         SubjectDAO dao = new SubjectDAO();
-        boolean result = dao.save(subject);
 
+        // 更新前レコードの存在チェック
+        Subject exists = dao.get(cd, school);
+        if (exists == null) {
+            request.setAttribute("error", "指定された科目が存在しません。");
+            request.setAttribute("subject", subject);
+            return "subject_update.jsp";
+        }
+
+        // 更新処理
+        boolean result = dao.save(subject);
         if (!result) {
             request.setAttribute("error", "科目の更新に失敗しました。");
-            return "error.jsp";
+            request.setAttribute("subject", subject);
+            return "subject_update.jsp";
         }
 
         request.setAttribute("message", "科目名を変更しました。");
-        // 一覧画面、または詳細画面などにリダイレクト
         return "subject_update_done.jsp";
     }
 }

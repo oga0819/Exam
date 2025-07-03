@@ -1,9 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="bean.Subject" %>
-<%
-    Subject subject = (Subject)request.getAttribute("subject");
-    String error = (String)request.getAttribute("error");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,17 +9,17 @@
 <body>
     <h1>科目情報登録</h1>
     <c:if test="${not empty error}">
-        <div style="color:red;"><%= error %></div>
+        <div style="color:red;">${error}</div>
     </c:if>
     <form action="SubjectCreateExecute.action" method="post">
         <table>
             <tr>
                 <th>科目コード</th>
-                <td><input type="text" name="cd" value="<%= (subject != null && subject.getCd() != null) ? subject.getCd() : "" %>"></td>
+                <td><input type="text" name="cd" value="${subject.cd}"></td>
             </tr>
             <tr>
                 <th>科目名</th>
-                <td><input type="text" name="name" value="<%= (subject != null && subject.getName() != null) ? subject.getName() : "" %>"></td>
+                <td><input type="text" name="name" value="${subject.name}"></td>
             </tr>
         </table>
         <input type="submit" value="登録">

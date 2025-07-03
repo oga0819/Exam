@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="base.jsp" %>
 <html>
 <head>
@@ -6,6 +6,6 @@
 </head>
 <body>
     <h2><%= request.getAttribute("message") %></h2>
-    <a href="SubjectListAction">科目一覧へ戻る</a>
+    <a href="SubjectList.action">科目一覧へ戻る</a>
 </body>
 </html>

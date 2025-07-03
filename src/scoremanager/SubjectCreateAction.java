@@ -1,37 +1,32 @@
 package scoremanager;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
+import tool.Action;
 
-public class SubjectCreateAction extends HttpServlet {
+public class SubjectCreateAction extends Action {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-        // 学校情報をセッションやリクエスト等から取得する想定
-        School school = (School) req.getSession().getAttribute("school");
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 教員セッションから学校情報を取得
+        Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+        if (teacher == null) {
+            request.setAttribute("error", "セッションが切れています。再度ログインしてください。");
+            return "login.jsp";
+        }
+        School school = teacher.getSchool();
 
-        // 新規登録画面用の空Subjectを作成
+        // 空Subjectを作成し学校をセット
         Subject subject = new Subject();
         subject.setSchool(school);
 
-        // リクエスト属性にセットしてJSPへ
-        req.setAttribute("subject", subject);
+        // リクエスト属性にセット
+        request.setAttribute("subject", subject);
 
-        // 新規登録画面へフォワード
-        req.getRequestDispatcher("/WebContent/scoremanager/subject_create.jsp").forward(req, res);
-    }
-
-    // POSTが来た場合もGETにフォワード（フォームからの直接POSTを防ぐため等）
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
-        throws ServletException, IOException {
-        doGet(req, res);
+        // 新規登録画面へ
+        return "subject_create.jsp";
     }
 }

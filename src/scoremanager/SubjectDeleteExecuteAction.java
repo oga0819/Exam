@@ -33,6 +33,6 @@ public class SubjectDeleteExecuteAction extends Action {
         }
 
         // リダイレクト先を指定（一覧へ戻るなど）
-        return "subject_result.jsp";
+        return "subject_delete_done.jsp";
     }
 }

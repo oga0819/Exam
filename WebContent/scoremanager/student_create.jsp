@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@include file="../header.html" %>
 <c:import url="base.jsp">
-  <c:param name="title" value="学生新規登録"/>
+  <c:param name="title">学生新規登録</c:param>
+  <c:param name="scripts"></c:param>
   <c:param name="content">
-
+    <link rel="stylesheet" href="../css/stu_create.css">
+    <section>
       <h2>学生新規登録</h2>
       <c:if test="${not empty error}">
         <div class="error">${error}</div>
@@ -42,8 +43,9 @@
         </table>
         <input type="submit" value="登録して終了">
       </form>
-      <p><a href="StudentList.action">学生一覧に戻る</a></p>
-
+      <div style="margin-top:16px;">
+        <a href="StudentList.action">学生一覧に戻る</a>
+      </div>
+    </section>
   </c:param>
 </c:import>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/studentcreate.css' />">
