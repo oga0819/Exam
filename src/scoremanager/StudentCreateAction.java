@@ -17,7 +17,7 @@ public class StudentCreateAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int currentYear = LocalDate.now().getYear();
         List<Integer> entYearSet = new ArrayList<>();
-        for (int i = currentYear - 10; i <= currentYear + 10; i++) {
+        for (int i = currentYear - 10; i <= currentYear + 1; i++) {
             entYearSet.add(i);
         }
 
