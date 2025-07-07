@@ -1,54 +1,96 @@
 package scoremanager;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.ClassNum;
+import bean.School;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import dao.ClassNumDAO;
 import dao.SubjectDAO;
+import dao.TestDAO;
 import tool.Action;
 
 public class TestRegistAction extends Action {
-	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-	    HttpSession session = req.getSession(false);
-	    Teacher teacher = (session != null) ? (Teacher) session.getAttribute("teacher") : null;
 
-	    if (teacher == null || teacher.getSchool() == null || teacher.getSchool().getCd() == null) {
-	        req.setAttribute("error", "ログイン情報が不正です。");
-	        return "error.jsp";
-	    }
+    @Override
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-	    String schoolCd = teacher.getSchool().getCd();
+        request.setCharacterEncoding("UTF-8");
 
-	    // 各リストを作成
-	    List<ClassNum> classList = new ClassNumDAO().filter(schoolCd);
-	    List<Subject> subjectList = new SubjectDAO().filter(schoolCd);
-
-	    List<Integer> countList = new ArrayList<>();
-	    for (int i = 1; i <= 5; i++) {
-	        countList.add(i);
-	    }
-
-	    List<Integer> yearList = new ArrayList<>();
-	    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	    for (int y = currentYear - 5; y <= currentYear; y++) {
-	        yearList.add(y);
-	    }
-
-	    req.setAttribute("classList", classList);
-	    req.setAttribute("subjectList", subjectList);
-	    req.setAttribute("countList", countList);
-	    req.setAttribute("yearList", yearList);
-
-	    return "test_regist.jsp";
-	}}
+        // セッションからログイン中の教師を取得
+        HttpSession session = request.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("teacher");
 
 
+        System.out.println("セッションのuser = " + teacher);
+
+
+
+        // Teacherから所属学校情報を取得
+        School school = teacher.getSchool();
+        if (school == null) {
+            // 所属学校情報がない場合の処理（必要なら）
+            request.setAttribute("error", "所属学校情報がありません。");
+            return "error.jsp";
+        }
+
+
+        // クラス一覧を取得
+        ClassNumDAO classDao = new ClassNumDAO();
+        List<String> classList = classDao.filter(school);
+
+        // 科目一覧を取得
+        SubjectDAO subjectDao = new SubjectDAO();
+        List<Subject> subjectList = subjectDao.filter(school);
+
+        System.out.println("subjectList size = " + subjectList.size());
+        for(Subject s : subjectList) {
+            System.out.println(s.getCd() + " : " + s.getName());
+        }
+
+
+        //入力パラメータ取得
+        String entYearStr = request.getParameter("entYear");
+        String classNum = request.getParameter("classNum");
+        String subjectCd = request.getParameter("subjectCd");
+        String noStr = request.getParameter("no");
+
+        List<Integer> entYearSet = new ArrayList<>();
+        int year = LocalDate.now().getYear();
+        for (int i = year - 10; i < year + 1; i++) {
+			entYearSet.add(i);
+		}
+        request.setAttribute("ent_year_set", entYearSet);
+
+        // JSPへセット
+        request.setAttribute("classList", classList);
+        request.setAttribute("subjectList", subjectList);
+
+        //絞り込み結果
+        List<Test> testList = null;
+
+        //パラメータがすべてそろっていたら絞り込み検索を実行
+        if (entYearStr != null && !entYearStr.isEmpty() &&
+                classNum != null && !classNum.isEmpty() &&
+                subjectCd != null && !subjectCd.isEmpty() &&
+                noStr != null && !noStr.isEmpty()) {
+
+                int entYear = Integer.parseInt(entYearStr);
+                int no = Integer.parseInt(noStr);
+
+                TestDAO testDao = new TestDAO();
+                testList = testDao.filter(school.getCd(), entYear, classNum, subjectCd, no);
+                request.setAttribute("testList", testList);
+            }
+
+        return "test_regist.jsp";
+
+    }
+}

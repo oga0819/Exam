@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>科目登録完了</title>
-    <link rel="stylesheet" href="../css/subject.css">
+    <link rel="stylesheet" href="../css/sub_createdone.css">
 </head>
 <body>
     <h1>科目登録完了</h1>

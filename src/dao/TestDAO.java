@@ -23,7 +23,14 @@ public class TestDAO extends DAO {
         try {
             con = getConnection();
 
-            String sql ="SELECT t.student_no, t.class_num, t.subject_cd, t.school_cd, t.no, t.point, s.name AS student_name, sub.name AS subject_name, sch.name AS school_name FROM test tJOIN student s ON t.student_no = s.noJOIN subject sub ON t.subject_cd = sub.cdJOIN school sch ON t.school_cd = sch.cdWHERE t.school_cd=? AND s.ent_year=? AND t.class_num=? AND t.subject_cd=? AND t.no=?";
+            String sql =
+            	    "SELECT t.student_no, t.class_num, t.subject_cd, t.school_cd, t.no, t.point, " +
+            	    "s.name AS student_name, sub.name AS subject_name, sch.name AS school_name " +
+            	    "FROM test t " +
+            	    "JOIN student s ON t.student_no = s.no " +
+            	    "JOIN subject sub ON t.subject_cd = sub.cd " +
+            	    "JOIN school sch ON t.school_cd = sch.cd " +
+            	    "WHERE t.school_cd=? AND s.ent_year=? AND t.class_num=? AND t.subject_cd=? AND t.no=?";
 
             st = con.prepareStatement(sql);
             st.setString(1, schoolCd);

@@ -18,7 +18,7 @@ public class School implements Serializable {
 		this.cd = cd;
 	}
 
-	public void setName(String Name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 }
