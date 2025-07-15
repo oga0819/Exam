@@ -9,6 +9,7 @@
         <section>
             <h2>成績参照</h2>
 
+
 			<div id="filter-wrapper">
 				<!-- 絞り込みフォーム 科目情報 -->
 	            <form id="filter" action="TestListSubjectExecute.action" method="get">
@@ -40,12 +41,12 @@
 	                        </c:forEach>
 	                    </select>
 	                </label>
-	                <input type="submit" value="検索" class="btn"><br>
+	                <input type="submit" value="検索" class="btn">
 
 	            </form>
 
-	            <!-- 絞り込みフォーム未入力時　エラーメッセージ表示 -->
-			    <c:if test="${not empty error}">
+				<!-- 絞り込みフォーム未入力時　エラーメッセージ表示 -->
+		        <c:if test="${not empty error}">
 					<div id="errormessage">
 						${error}
 					</div>
@@ -62,10 +63,53 @@
 	            </form>
             </div>
 
-			<!-- 利用方法案内メッセージ -->
-			<p id="annaimessage">
-				<label>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
-			</p>
+
+			<p>科目：${subjectName}</p>
+
+            <!-- 絞り込み結果表示 -->
+
+            <!-- 学生データが空の場合の表示 -->
+			<c:if test="${empty subjectClassTestList}">
+			    <div>学生情報が存在しませんでした</div>
+			</c:if>
+
+            <!-- 学生データがある場合のみテーブルを表示 -->
+			<c:if test="${not empty subjectClassTestList}">
+				<table border="1">
+				    <tr>
+				        <th>入学年度</th>
+				        <th>クラス</th>
+				        <th>学生番号</th>
+				        <th>氏名</th>
+				        <!-- ここに全テスト回のカラムを動的に出す -->
+				        <c:forEach var="testNo" items="${testNoList}">
+				            <th>${testNo}回目</th>
+				        </c:forEach>
+				    </tr>
+				    <c:forEach var="student" items="${subjectClassTestList}">
+				        <tr>
+				            <td>${student.entYear}</td>
+				            <td>${student.classNum}</td>
+				            <td>${student.studentNo}</td>
+				            <td>${student.studentName}</td>
+				            <!-- テスト回の点数を順に表示 -->
+				            <c:forEach var="testNo" items="${testNoList}">
+				                <td>
+				                    <c:choose>
+				                        <c:when test="${student.points[testNo] != null}">
+				                            ${student.points[testNo]}
+				                        </c:when>
+				                        <c:otherwise>
+				                            <!-- 点数なしの場合は空欄 -->
+				                        </c:otherwise>
+				                    </c:choose>
+				                </td>
+				            </c:forEach>
+				        </tr>
+				    </c:forEach>
+				</table>
+			</c:if>
+
 
         </section>
     </c:param>

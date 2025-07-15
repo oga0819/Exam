@@ -4,36 +4,55 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import bean.TestListStudent;
+import bean.School;
+import bean.TestListSubject;
 
 public class TestListSubjectDAO extends DAO {
 
-    protected String baseSql =
-        "SELECT t.name, t.subject_cd, s.name AS subject_name, t.num, t.point, t.class_num " +
-        "FROM TEST t JOIN subject s ON t.subject_cd = s.cd";
+	protected String baseSql =
+		    "SELECT t.student_no, t.class_num, t.no, t.point, t.subject_cd, s.name AS subject_name, " +
+		    "       st.name AS student_name, st.ent_year " +
+		    "FROM TEST t " +
+		    "JOIN subject s ON t.subject_cd = s.cd " +
+		    "JOIN student st ON t.student_no = st.NO"; // ← studentテーブル結合
 
-    protected List<TestListStudent> postFilter(ResultSet rs) throws Exception {
-        List<TestListStudent> result = new ArrayList<>();
+    protected List<TestListSubject> postFilter(ResultSet rs) throws Exception {
+        List<TestListSubject> result = new ArrayList<>();
+        Map<String, TestListSubject> studentMap = new HashMap<>(); // studentNo をキーに統合
+
         while (rs.next()) {
-            TestListStudent record = new TestListStudent();
-            record.setName(rs.getString("name"));
-            record.setSubjectCd(rs.getString("subject_cd"));
-            record.setNum(rs.getInt("num"));
-            record.setPoint(rs.getInt("point"));
-            // もしTestListStudentにclassNumのフィールドがあれば設定する
-            // record.setClassNum(rs.getString("class_num"));
-            result.add(record);
+            String studentNo = rs.getString("student_no");
+            TestListSubject record = studentMap.get(studentNo);
+
+            if (record == null) {
+                record = new TestListSubject();
+                record.setEntYear(rs.getInt("ent_year"));
+                record.setStudentNo(studentNo);
+                record.setStudentName(rs.getString("student_name")); // ← typo修正しました（sutudet_name → student_name）
+                record.setClassNum(rs.getString("class_num"));
+                record.setPoints(new HashMap<>());
+
+                studentMap.put(studentNo, record);
+                result.add(record);
+            }
+
+            // テスト回と点数をMapに追加
+            int testNo = rs.getInt("no");
+            int point = rs.getInt("point");
+            record.getPoints().put(testNo, point);
         }
+
         return result;
     }
 
     /**
-     * 科目コードとクラス番号を必須条件として成績を取得。
-     * 他に任意の絞り込み条件があれば追加可能。
+     * 入学年度とクラス番号、科目、スクールを必須条件として成績を取得。
      */
-    public List<TestListStudent> filter(String subjectCd, String classNum, TestListStudent target) throws Exception {
+    public List<TestListSubject> filter(int entYear, String classNum, String subjectCd, School school) throws Exception {
         if (subjectCd == null || subjectCd.isEmpty()) {
             throw new IllegalArgumentException("subjectCd（科目コード）は必須です");
         }
@@ -44,28 +63,14 @@ public class TestListSubjectDAO extends DAO {
         StringBuilder sql = new StringBuilder(baseSql + " WHERE 1=1");
         List<Object> params = new ArrayList<>();
 
-        // 必須条件
+        //必須条件
         sql.append(" AND t.subject_cd = ?");
         params.add(subjectCd);
 
         sql.append(" AND t.class_num = ?");
         params.add(classNum);
 
-        // 任意の条件
-        if (target != null) {
-            if (target.getName() != null && !target.getName().isEmpty()) {
-                sql.append(" AND t.name = ?");
-                params.add(target.getName());
-            }
-            if (target.getNum() != null) {
-                sql.append(" AND t.num = ?");
-                params.add(target.getNum());
-            }
-            if (target.getPoint() != null) {
-                sql.append(" AND t.point = ?");
-                params.add(target.getPoint());
-            }
-        }
+
 
         try (Connection con = getConnection();
              PreparedStatement st = con.prepareStatement(sql.toString())) {

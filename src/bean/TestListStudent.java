@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class TestListStudent implements Serializable{
 
-	private String name;
+	private String subjectName;
 	private String subjectCd;
 	private Integer num;
 	private Integer point;
 
 
-	public String getName() {
-		return name;
+	public String getSubjectName() {
+		return subjectName;
 	}
 
 	public String getSubjectCd() {
@@ -26,8 +26,8 @@ public class TestListStudent implements Serializable{
 		return point;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSubjectName(String name) {
+		this.subjectName = name;
 	}
 
 	public void setSubjectCd(String subjectCd) {
