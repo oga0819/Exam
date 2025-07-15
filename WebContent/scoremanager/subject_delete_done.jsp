@@ -5,10 +5,12 @@
 <c:import url="base.jsp">
   <c:param name="title">科目削除完了</c:param>
   <c:param name="content">
-    <h1>科目削除完了</h1>
-    <div>科目が正常に削除されました。</div>
+  <section>
+    <h2 class="page-title">科目削除完了</h2>
+    <p class="complete-message">科目が正常に削除されました。</p>
     <div>
         <a href="SubjectList.action">科目一覧へ戻る</a>
     </div>
+    </section>
   </c:param>
 </c:import>

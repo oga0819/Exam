@@ -1,50 +1,50 @@
-/* 外枠ボックス */
-.complete-box {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  width: 480px;
-  margin: 40px auto;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
+/* sub_create_done.css */
 
-/* タイトル */
-.complete-title {
-  font-size: 1.4rem;
+/* ① 見出し（学生情報登録） */
+.page-title {
+  font-size: 1.6rem;
   font-weight: bold;
+  color: #222;
+  letter-spacing: 0.06em;
+  margin: 0 0 12px 0;
+  padding: 8px 20px;
   background: #e8f0fb;
-  padding: 12px;
-  text-align: left;
-  border-radius: 6px 6px 0 0;
-  border-bottom: 1px solid #dbe6f7;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-/* 完了メッセージ */
+/* ② 完了メッセージ */
 .complete-message {
   background: #a3d6b1;
   color: #225d2a;
-  text-align: center;
   font-size: 1rem;
-  padding: 10px;
-  margin-top: 18px;
-  border-radius: 4px;
+  padding: 8px 20px;
+  border-radius: 0 0 3px 3px;
+  margin-bottom: 16px;
+  margin-top: 0;
 }
 
-/* 戻るリンク */
-.complete-link {
-  margin-top: 20px;
-  text-align: left;
-}
-.complete-link a {
+/* ③ 戻るリンク */
+.back-link {
   color: #0066cc;
   text-decoration: underline;
+  margin-right: 18px;
   font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
 }
-.complete-link a:hover {
+.back-link:hover {
   color: #003366;
 }
 
-
-
-
+/* ④ 学生一覧リンク */
+.list-link {
+  color: #0066cc;
+  text-decoration: underline;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.list-link:hover {
+  color: #003366;
+}

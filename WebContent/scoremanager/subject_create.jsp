@@ -7,7 +7,7 @@
     <c:param name="scripts"></c:param>
     <c:param name="content">
         <section>
-            <h2>科目情報登録</h2>
+            <h2 class="page-title">科目情報登録</h2>
 
             <c:if test="${not empty error}">
                 <div class="error">${error}</div>
