@@ -6,7 +6,7 @@ public class TestListStudent implements Serializable{
 
 	private String name;
 	private String subjectCd;
-	private Integer num;
+	private Integer no;
 	private Integer point;
 
 
@@ -18,8 +18,8 @@ public class TestListStudent implements Serializable{
 		return subjectCd;
 	}
 
-	public Integer getNum() {
-		return num;
+	public Integer getNo() {
+		return no;
 	}
 
 	public Integer getPoint() {
@@ -34,8 +34,8 @@ public class TestListStudent implements Serializable{
 		this.subjectCd = subjectCd;
 	}
 
-	public void setNum(Integer num) {
-		this.num = num;
+	public void setNo(Integer no) {
+		this.no = no;
 	}
 
 	public void setPoint(Integer point) {

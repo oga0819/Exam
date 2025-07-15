@@ -24,7 +24,8 @@ public class LoginExecuteAction extends Action {
             response.sendRedirect(request.getContextPath() + "/scoremanager/menu.jsp");
             return null; // nullをreturnしてforwardしないように
         } else {
-            return "login-error.jsp";
+        	request.setAttribute("error", "・ ログインに失敗しました。IDまたはパスワードが正しくありません。");
+            return "login.jsp";
         }
     }
 }

@@ -1,0 +1,50 @@
+/* 外枠ボックス */
+.complete-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 480px;
+  margin: 40px auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* タイトル */
+.complete-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: #e8f0fb;
+  padding: 12px;
+  text-align: left;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid #dbe6f7;
+}
+
+/* 完了メッセージ */
+.complete-message {
+  background: #a3d6b1;
+  color: #225d2a;
+  text-align: center;
+  font-size: 1rem;
+  padding: 10px;
+  margin-top: 18px;
+  border-radius: 4px;
+}
+
+/* 戻るリンク */
+.complete-link {
+  margin-top: 20px;
+  text-align: left;
+}
+.complete-link a {
+  color: #0066cc;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+.complete-link a:hover {
+  color: #003366;
+}
+
+
+
+

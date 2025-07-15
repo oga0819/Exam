@@ -11,7 +11,7 @@ import bean.TestListStudent;
 public class TestListSubjectDAO extends DAO {
 
     protected String baseSql =
-        "SELECT t.name, t.subject_cd, s.name AS subject_name, t.num, t.point, t.class_num " +
+        "SELECT t.name, t.subject_cd, s.name AS subject_name, t.no, t.point, t.class_num " +
         "FROM TEST t JOIN subject s ON t.subject_cd = s.cd";
 
     protected List<TestListStudent> postFilter(ResultSet rs) throws Exception {
@@ -20,7 +20,7 @@ public class TestListSubjectDAO extends DAO {
             TestListStudent record = new TestListStudent();
             record.setName(rs.getString("name"));
             record.setSubjectCd(rs.getString("subject_cd"));
-            record.setNum(rs.getInt("num"));
+            record.setNo(rs.getInt("no"));
             record.setPoint(rs.getInt("point"));
             // もしTestListStudentにclassNumのフィールドがあれば設定する
             // record.setClassNum(rs.getString("class_num"));
@@ -57,9 +57,9 @@ public class TestListSubjectDAO extends DAO {
                 sql.append(" AND t.name = ?");
                 params.add(target.getName());
             }
-            if (target.getNum() != null) {
-                sql.append(" AND t.num = ?");
-                params.add(target.getNum());
+            if (target.getNo() != null) {
+                sql.append(" AND t.no = ?");
+                params.add(target.getNo());
             }
             if (target.getPoint() != null) {
                 sql.append(" AND t.point = ?");

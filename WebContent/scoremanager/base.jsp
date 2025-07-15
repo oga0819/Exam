@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../header.html" %>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/base.css">
     <title><c:out value="${param.title}" /></title>
     <c:if test="${empty param.nobasecss}">
 	</c:if>

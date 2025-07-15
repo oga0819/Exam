@@ -19,6 +19,10 @@
 
   <div class="login-container">
     <div class="login-header">ログイン</div>
+    <!-- エラーメッセージがある場合に表示 -->
+    <c:if test="${not empty error}">
+    <p style="color:red; font-size: 10px; text-align: center;">${error}</p>
+</c:if>
     <form action="<%=request.getContextPath()%>/scoremanager/LoginExecute.action" method="post" autocomplete="off">
       <div class="login-form-area">
         <div class="login-input-area">
@@ -42,10 +46,7 @@
           <input type="submit" class="login-btn" value="ログイン">
         </div>
 
-        <% String error = request.getParameter("error");
-           if ("1".equals(error)) { %>
-          <div class="login-error-msg" aria-live="polite">IDまたはパスワードが違います。</div>
-        <% } %>
+
       </div>
     </form>
   </div>

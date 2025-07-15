@@ -36,9 +36,9 @@ public class TestListStudentExecuteAction extends Action {
         String numStr = request.getParameter("num");
         if (numStr != null && !numStr.isEmpty()) {
             try {
-                target.setNum(Integer.valueOf(numStr));
+                target.setNo(Integer.valueOf(numStr));
             } catch (NumberFormatException e) {
-                target.setNum(null); // 不正な入力は無視
+                target.setNo(null); // 不正な入力は無視
             }
         }
 

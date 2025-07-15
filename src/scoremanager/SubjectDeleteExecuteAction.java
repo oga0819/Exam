@@ -1,38 +1,45 @@
-package  scoremanager;
+package scoremanager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDAO;
 import tool.Action;
 
 public class SubjectDeleteExecuteAction extends Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // ログイン中の学校情報を取得
-        School school = (School) request.getSession().getAttribute("school");
+        // セッションから teacher を取得し school を取得
+        Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+        if (teacher == null) {
+            request.setAttribute("error", "セッションが切れています。再度ログインしてください。");
+            return "subject_delete.jsp";
+        }
+        School school = teacher.getSchool();
 
-        // 削除対象のCDを取得
+        // リクエストから科目コードを取得
         String cd = request.getParameter("cd");
+        if (cd == null || cd.isEmpty()) {
+            request.setAttribute("error", "科目コードが指定されていません");
+            return "subject_delete.jsp";
+        }
 
-        // Subjectインスタンスを作成
+        // 削除対象の科目オブジェクトを生成して school をセット
         Subject subject = new Subject();
         subject.setCd(cd);
-        subject.setSchool(school);
+        subject.setSchool(school); // ★これがないとNPEになる！
 
-        // 削除処理
+        // 削除実行
         SubjectDAO dao = new SubjectDAO();
         boolean success = dao.delete(subject);
 
-        // メッセージを設定
         if (success) {
-            request.setAttribute("message", "科目を削除しました。");
+            return "subject_delete_done.jsp";
         } else {
-            request.setAttribute("message", "科目の削除に失敗しました。");
+            request.setAttribute("error", "科目の削除に失敗しました");
+            return "error.jsp";
         }
-
-        // リダイレクト先を指定（一覧へ戻るなど）
-        return "subject_delete_done.jsp";
     }
 }

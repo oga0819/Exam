@@ -51,9 +51,9 @@ public class TestListAction extends Action {
             String numStr = request.getParameter("num");
             if (numStr != null && !numStr.isEmpty()) {
                 try {
-                    target.setNum(Integer.valueOf(numStr));
+                    target.setNo(Integer.valueOf(numStr));
                 } catch (NumberFormatException e) {
-                    target.setNum(null);
+                    target.setNo(null);
                 }
             }
 
@@ -74,7 +74,7 @@ public class TestListAction extends Action {
             request.setAttribute("subjectCd", subjectCd);
             request.setAttribute("classNum", classNum);
 
-            return "subject_class_list.jsp";
+            return "subject_list.jsp";
 
         } else {
             // 学生別成績一覧モード（デフォルト）
@@ -87,9 +87,9 @@ public class TestListAction extends Action {
             String numStr = request.getParameter("num");
             if (numStr != null && !numStr.isEmpty()) {
                 try {
-                    target.setNum(Integer.valueOf(numStr));
+                    target.setNo(Integer.valueOf(numStr));
                 } catch (NumberFormatException e) {
-                    target.setNum(null);
+                    target.setNo(null);
                 }
             }
 
@@ -108,7 +108,7 @@ public class TestListAction extends Action {
             request.setAttribute("studentTestList", list);
             request.setAttribute("searchTarget", target);
 
-            return "studentlist.jsp";
+            return "test_list.jsp";
         }
     }
 }

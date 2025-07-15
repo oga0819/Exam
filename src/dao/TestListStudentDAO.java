@@ -11,18 +11,21 @@ import bean.TestListStudent;
 
 public class TestListStudentDAO extends DAO{
 
-    protected String baseSql = "SELECT st.name AS student_name, t.subject_cd, s.name AS subject_name, t.num, t.point FROM TEST t JOIN STUDENT st ON t.student_no = st.no JOIN SUBJECT s ON t.subject_cd = s.cd";
+	protected String baseSql =
+		    "SELECT t.subject_cd, s.name AS subject_name, t.no, t.point " +
+		    "FROM TEST t " +
+		    "JOIN SUBJECT s ON t.subject_cd = s.cd";
+
 
     protected List<TestListStudent> postFilter(ResultSet rs) throws SQLException {
         List<TestListStudent> result = new ArrayList<>();
         while (rs.next()) {
-            TestListStudent student = new TestListStudent();
-            student.setName(rs.getString("student_name"));
-            student.setSubjectCd(rs.getString("subject_cd"));
-            student.setSubjectCd(rs.getString("subject_name"));
-            student.setNum(rs.getInt("num"));
-            student.setPoint(rs.getInt("point"));
-            result.add(student);
+        	TestListStudent test = new TestListStudent();
+            test.setSubjectCd(rs.getString("subject_cd"));
+            test.setName(rs.getString("subject_name"));
+            test.setNo(rs.getInt("no"));
+            test.setPoint(rs.getInt("point"));
+            result.add(test);
         }
         return result;
     }
@@ -39,9 +42,9 @@ public class TestListStudentDAO extends DAO{
             sql.append(" AND subject_cd = ?");
             params.add(target.getSubjectCd());
         }
-        if (target.getNum() != null) {
-            sql.append(" AND num = ?");
-            params.add(target.getNum());
+        if (target.getNo() != null) {
+            sql.append(" AND no = ?");
+            params.add(target.getNo());
         }
         if (target.getPoint() != null) {
             sql.append(" AND point = ?");

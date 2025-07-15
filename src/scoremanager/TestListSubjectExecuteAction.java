@@ -28,8 +28,8 @@ public class TestListSubjectExecuteAction extends Action {
         }
 
         // パラメータ取得（科目コードとクラス番号は必須）
-        String subjectCd = request.getParameter("subjectCd");
-        String classNum = request.getParameter("classNum");
+        String subjectCd = request.getParameter("subject_Cd");
+        String classNum = request.getParameter("class_Num");
 
         if (subjectCd == null || subjectCd.isEmpty() || classNum == null || classNum.isEmpty()) {
             request.setAttribute("error", "科目コードとクラス番号は必須です。");
@@ -47,9 +47,9 @@ public class TestListSubjectExecuteAction extends Action {
         String numStr = request.getParameter("num");
         if (numStr != null && !numStr.isEmpty()) {
             try {
-                target.setNum(Integer.valueOf(numStr));
+                target.setNo(Integer.valueOf(numStr));
             } catch (NumberFormatException e) {
-                target.setNum(null);
+                target.setNo(null);
             }
         }
 
@@ -70,11 +70,10 @@ public class TestListSubjectExecuteAction extends Action {
         request.setAttribute("subjectClassTestList", list);
 
         // 検索条件を戻す（画面で入力値表示に利用）
-        request.setAttribute("searchTarget", target);
-        request.setAttribute("subjectCd", subjectCd);
-        request.setAttribute("classNum", classNum);
+        String entYear = request.getParameter("ent_year"); // 追加
+
 
         // JSPへ遷移
-        return "test_list.jsp";
+        return "test_list_student.jsp";
     }
 }
