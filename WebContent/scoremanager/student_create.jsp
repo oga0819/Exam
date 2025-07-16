@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="stylesheet" href="../css/stu_create.css">
+
 <c:import url="base.jsp">
   <c:param name="title">学生新規登録</c:param>
   <c:param name="scripts"></c:param>
   <c:param name="content">
-    <link rel="stylesheet" href="../css/stu_create.css">
     <section>
       <h2>学生新規登録</h2>
       <c:if test="${not empty error}">

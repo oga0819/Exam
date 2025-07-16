@@ -106,21 +106,38 @@ public class SubjectDAO extends DAO {
         }
     }
 
-    // 削除
+ // subject に紐づく test レコードを先に削除し、次に subject を削除（すべてこのメソッド内で完結）
     public boolean delete(Subject subject) throws Exception {
         Connection con = null;
-        PreparedStatement st = null;
+        PreparedStatement stTest = null;
+        PreparedStatement stSubject = null;
         try {
             con = getConnection();
-            String sql = "DELETE FROM subject WHERE cd = ? AND school_cd = ?";
-            st = con.prepareStatement(sql);
-            st.setString(1, subject.getCd());
-            st.setString(2, subject.getSchool().getCd());
-            int result = st.executeUpdate();
-            return result > 0;
+            con.setAutoCommit(false); // トランザクション開始
+
+            // ① test テーブルの関連データを削除
+            String deleteTestSql = "DELETE FROM test WHERE subject_cd = ? AND school_cd = ?";
+            stTest = con.prepareStatement(deleteTestSql);
+            stTest.setString(1, subject.getCd());
+            stTest.setString(2, subject.getSchool().getCd());
+            stTest.executeUpdate(); // 関連がなくてもOK（削除件数は確認しない）
+
+            // ② subject テーブルのデータを削除
+            String deleteSubjectSql = "DELETE FROM subject WHERE cd = ? AND school_cd = ?";
+            stSubject = con.prepareStatement(deleteSubjectSql);
+            stSubject.setString(1, subject.getCd());
+            stSubject.setString(2, subject.getSchool().getCd());
+            int subjectDeleted = stSubject.executeUpdate();
+
+            con.commit(); // 両方成功したらコミット
+            return subjectDeleted > 0; // 削除成功したか返す
+        } catch (Exception e) {
+            if (con != null) try { con.rollback(); } catch (Exception ex) {}
+            throw e; // 呼び出し元で処理
         } finally {
-            if (st != null) try { st.close(); } catch (Exception ex) {}
-            if (con != null) try { con.close(); } catch (Exception ex) {}
+            if (stTest != null) try { stTest.close(); } catch (Exception ex) {}
+            if (stSubject != null) try { stSubject.close(); } catch (Exception ex) {}
+            if (con != null) try { con.setAutoCommit(true); con.close(); } catch (Exception ex) {}
         }
     }
 }

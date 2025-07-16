@@ -117,4 +117,8 @@ public class TestRegistExecuteAction extends Action {
 
         return "test_regist_done.jsp";
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/oga0819/Exam.git

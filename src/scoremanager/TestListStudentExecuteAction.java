@@ -79,6 +79,7 @@ public class TestListStudentExecuteAction extends Action {
         //JSPへセット
         request.setAttribute("studentTestList", testList);
 
+<<<<<<< HEAD
         //学生情報（氏名・学生番号）をセット（nullチェック必須）
         if (studentInfo != null) {
             request.setAttribute("studentName", studentInfo.getName());
@@ -86,6 +87,18 @@ public class TestListStudentExecuteAction extends Action {
         } else {
             request.setAttribute("studentName", "");
             request.setAttribute("studentNo", studentNo);
+=======
+        target.setName(request.getParameter("name"));
+        target.setSubjectCd(request.getParameter("subjectCd"));
+
+        String numStr = request.getParameter("num");
+        if (numStr != null && !numStr.isEmpty()) {
+            try {
+                target.setNo(Integer.valueOf(numStr));
+            } catch (NumberFormatException e) {
+                target.setNo(null); // 不正な入力は無視
+            }
+>>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
         }
 
         return "test_list_student.jsp";

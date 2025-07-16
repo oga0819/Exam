@@ -1,0 +1,48 @@
+/* ① 見出し（学生情報登録） */
+.page-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 0.06em;
+  margin: 0 0 12px 0;
+  padding: 8px 20px;
+  background: #e8f0fb;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* ② 完了メッセージ */
+.complete-message {
+  background: #a3d6b1;
+  color: #225d2a;
+  font-size: 1rem;
+  padding: 8px 20px;
+  border-radius: 0 0 3px 3px;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+/* ③ 戻るリンク */
+.back-link {
+  color: #0066cc;
+  text-decoration: underline;
+  margin-right: 18px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.back-link:hover {
+  color: #003366;
+}
+
+/* ④ 学生一覧リンク */
+.list-link {
+  color: #0066cc;
+  text-decoration: underline;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.list-link:hover {
+  color: #003366;
+}

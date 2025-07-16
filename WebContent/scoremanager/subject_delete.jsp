@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="../css/subject_delete.css">
+<link rel="stylesheet" href="../css/sub_delete.css">
 
 <c:import url="base.jsp">
     <c:param name="title">得点管理システム</c:param>
@@ -8,7 +8,7 @@
     <c:param name="content">
         <section>
             <h2>科目情報削除</h2>
-            <p>以下の科目情報を削除します。よろしいですか？</p>
+            <p>以下の科目情報を削除すると、成績情報も一緒に削除されますが、よろしいですか？</p>
             <div>
                 <label>科目コード：</label>
                 <span>${subject.cd}</span>
