@@ -13,6 +13,7 @@
             	<label>変更が完了しました</label>
             </p>
             <a href="TestRegist.action">戻る</a>
+<<<<<<< master
             <a href="TestList.action">成績参照</a>
 =======
 <link rel="stylesheet" href="../css/sub_create_done.css">
@@ -28,6 +29,9 @@
             </p>
             <a href="TestRegist.action">戻る</a>
 >>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
+=======
+            <a href="#">成績参照</a>
+>>>>>>> 4545e92 test
         </section>
     </c:param>
 </c:import>

@@ -9,13 +9,12 @@
         <section>
             <h2>成績参照</h2>
 
-			<div id="filter-wrapper">
 
+			<div id="filter-wrapper">
 				<!-- 絞り込みフォーム 科目情報 -->
 	            <form id="filter" action="TestListSubjectExecute.action" method="get">
 	            <p class="sform"><label>科目情報</label></p>
 	            <input type="hidden" name="mode" value="subjectClass" />
-
 	                <label>入学年度<br>
 	                    <select name="f1">
 	                    	<option value="">------</option>
@@ -43,6 +42,7 @@
 	                    </select>
 	                </label>
 	                <input type="submit" value="検索" class="btn">
+
 	            </form>
 
 				<!-- 絞り込みフォーム未入力時　エラーメッセージ表示 -->
@@ -63,9 +63,10 @@
 	            </form>
             </div>
 
-            <!-- 結果表示 -->
-            <!-- 科目名 -->
+
 			<p>科目：${subjectName}</p>
+
+            <!-- 絞り込み結果表示 -->
 
             <!-- 学生データが空の場合の表示 -->
 			<c:if test="${empty subjectClassTestList}">
@@ -108,6 +109,7 @@
 				    </c:forEach>
 				</table>
 			</c:if>
+
 
         </section>
     </c:param>
