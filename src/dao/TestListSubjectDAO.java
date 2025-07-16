@@ -18,11 +18,11 @@ public class TestListSubjectDAO extends DAO {
 		    "       st.name AS student_name, st.ent_year " +
 		    "FROM TEST t " +
 		    "JOIN subject s ON t.subject_cd = s.cd " +
-		    "JOIN student st ON t.student_no = st.NO"; // ← studentテーブル結合
+		    "JOIN student st ON t.student_no = st.NO"; //studentテーブル結合
 
     protected List<TestListSubject> postFilter(ResultSet rs) throws Exception {
         List<TestListSubject> result = new ArrayList<>();
-        Map<String, TestListSubject> studentMap = new HashMap<>(); // studentNo をキーに統合
+        Map<String, TestListSubject> studentMap = new HashMap<>(); //studentNoをキーに統合
 
         while (rs.next()) {
             String studentNo = rs.getString("student_no");
@@ -32,7 +32,7 @@ public class TestListSubjectDAO extends DAO {
                 record = new TestListSubject();
                 record.setEntYear(rs.getInt("ent_year"));
                 record.setStudentNo(studentNo);
-                record.setStudentName(rs.getString("student_name")); // ← typo修正しました（sutudet_name → student_name）
+                record.setStudentName(rs.getString("student_name"));
                 record.setClassNum(rs.getString("class_num"));
                 record.setPoints(new HashMap<>());
 
@@ -40,7 +40,7 @@ public class TestListSubjectDAO extends DAO {
                 result.add(record);
             }
 
-            // テスト回と点数をMapに追加
+            //テスト回と点数をMapに追加
             int testNo = rs.getInt("no");
             int point = rs.getInt("point");
             record.getPoints().put(testNo, point);
@@ -70,16 +70,15 @@ public class TestListSubjectDAO extends DAO {
         sql.append(" AND t.class_num = ?");
         params.add(classNum);
 
+        sql.append(" AND st.ent_year = ?");
+        params.add(entYear);
 
-
-        try (Connection con = getConnection();
-             PreparedStatement st = con.prepareStatement(sql.toString())) {
-
+        try (Connection con = getConnection();PreparedStatement st = con.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 st.setObject(i + 1, params.get(i));
             }
-
             ResultSet rs = st.executeQuery();
+
             return postFilter(rs);
         }
     }

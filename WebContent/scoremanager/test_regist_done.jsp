@@ -12,7 +12,7 @@
             	<label>変更が完了しました</label>
             </p>
             <a href="TestRegist.action">戻る</a>
-            <a href="#">成績参照</a>
+            <a href="TestList.action">成績参照</a>
         </section>
     </c:param>
 </c:import>

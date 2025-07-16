@@ -44,7 +44,7 @@
 
 	            </form>
 
-	            <!-- 絞り込みフォーム未入力時　エラーメッセージ表示 -->
+	            <!-- 科目情報絞り込みフォーム未入力時　エラーメッセージ表示 -->
 			    <c:if test="${not empty error}">
 					<div id="errormessage">
 						${error}

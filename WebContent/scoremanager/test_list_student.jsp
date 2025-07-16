@@ -41,10 +41,9 @@
 	                    </select>
 	                </label>
 	                <input type="submit" value="検索" class="btn">
-
 	            </form>
 
-				<!-- 絞り込みフォーム未入力時　エラーメッセージ表示 -->
+				<!-- 科目情報絞り込みフォーム未入力時　エラーメッセージ表示 -->
 		        <c:if test="${not empty error}">
 					<div id="errormessage">
 						${error}
@@ -56,16 +55,18 @@
 	            <p class="sform"><label>学生情報</label></p>
 	            <input type="hidden" name="mode" value="student" />
 	                <label>学生番号<br>
-	                    <input type="text" name="f4" required/>
+	                    <input type="text" name="f4" value="${studentNo}" required/>
 	                </label>
 	                <input type="submit" value="検索" class="btn">
 	            </form>
+
             </div>
 
+			<!-- 氏名　学生番号 -->
 			<div>氏名：${studentName}（${studentNo}）</div>
 
 			<!-- 学生データが空の場合の表示 -->
-			<c:if test="${empty sutudentTestList}">
+			<c:if test="${empty studentTestList}">
 			    <div>成績情報が存在しませんでした</div>
 			</c:if>
 
@@ -88,8 +89,6 @@
 				    </c:forEach>
 				</table>
 			</c:if>
-
-
         </section>
     </c:param>
 </c:import>
