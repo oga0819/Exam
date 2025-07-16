@@ -12,37 +12,20 @@ import bean.TestListStudent;
 
 public class TestListStudentDAO extends DAO {
 
-<<<<<<< HEAD
     protected String baseSql = "SELECT st.name AS student_name, t.subject_cd, s.name AS subject_name, t.no, t.point "
             + "FROM TEST t "
             + "JOIN STUDENT st ON t.student_no = st.no "
             + "JOIN SUBJECT s ON t.subject_cd = s.cd";
-=======
-	protected String baseSql =
-		    "SELECT t.subject_cd, s.name AS subject_name, t.no, t.point " +
-		    "FROM TEST t " +
-		    "JOIN SUBJECT s ON t.subject_cd = s.cd";
-
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
 
     protected List<TestListStudent> postFilter(ResultSet rs) throws SQLException {
         List<TestListStudent> result = new ArrayList<>();
         while (rs.next()) {
-<<<<<<< HEAD
             TestListStudent tls = new TestListStudent();
             tls.setSubjectCd(rs.getString("subject_cd"));
             tls.setSubjectName(rs.getString("subject_name"));
             tls.setNum(rs.getInt("no"));
             tls.setPoint(rs.getInt("point"));
             result.add(tls);
-=======
-        	TestListStudent test = new TestListStudent();
-            test.setSubjectCd(rs.getString("subject_cd"));
-            test.setName(rs.getString("subject_name"));
-            test.setNo(rs.getInt("no"));
-            test.setPoint(rs.getInt("point"));
-            result.add(test);
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
         }
         return result;
     }
@@ -59,23 +42,8 @@ public class TestListStudentDAO extends DAO {
             sql.append(" AND t.student_no = ?");
             params.add(student.getNo());
         }
-<<<<<<< HEAD
 
         // 名前などで絞り込みたい場合、Studentにフィールドがあれば追加可能
-=======
-        if (target.getSubjectCd() != null && !target.getSubjectCd().isEmpty()) {
-            sql.append(" AND subject_cd = ?");
-            params.add(target.getSubjectCd());
-        }
-        if (target.getNo() != null) {
-            sql.append(" AND no = ?");
-            params.add(target.getNo());
-        }
-        if (target.getPoint() != null) {
-            sql.append(" AND point = ?");
-            params.add(target.getPoint());
-        }
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
 
         try (Connection con = getConnection();
              PreparedStatement st = con.prepareStatement(sql.toString())) {

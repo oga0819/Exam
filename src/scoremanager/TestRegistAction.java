@@ -46,7 +46,6 @@ public class TestRegistAction extends Action {
         List<Subject> subjectList = subjectDao.filter(school);
 
         // 入学年度一覧取得
-<<<<<<< HEAD
         StudentDAO studentDao = new StudentDAO();
         List<Student> studentList = studentDao.filter(school, true);
         Set<Integer> entYearSet = new TreeSet<>((a, b) -> b - a);
@@ -70,39 +69,7 @@ public class TestRegistAction extends Action {
                     break;
                 }
             }
-=======
-     // 入学年度一覧（現在年から10年前〜翌年）
-        int currentYear = java.time.LocalDate.now().getYear();
-        List<Integer> entYearList = new ArrayList<>();
-        for (int i = currentYear - 10; i <= currentYear + 1; i++) {
-            entYearList.add(i);
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
-        }
 
-        String searched = request.getParameter("searched");
-
-<<<<<<< HEAD
-        //テスト結果リストを準備
-        List<Test> testList = new ArrayList<>();
-=======
-        // 入力パラメータ取得
-        String entYearStr = request.getParameter("f1");
-        String classNum = request.getParameter("f2");
-        String subjectCd = request.getParameter("f3");
-        String noStr = request.getParameter("f4");
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
-
-<<<<<<< HEAD
-=======
-        // Subject取得
-        Subject selectedSubject = null;
-        if (subjectCd != null && !subjectCd.isEmpty()) {
-            for (Subject sub : subjectList) {
-                if (sub.getCd().equals(subjectCd)) {
-                    selectedSubject = sub;
-                    break;
-                }
-            }
         }
 
         String searched = request.getParameter("searched");
@@ -110,7 +77,8 @@ public class TestRegistAction extends Action {
         //テスト結果リストを準備
         List<Test> testList = new ArrayList<>();
 
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
+
+
         // パラメータが揃っている場合に絞り込み検索
         if (entYearStr != null && !entYearStr.isEmpty()
                 && classNum != null && !classNum.isEmpty()
@@ -136,7 +104,6 @@ public class TestRegistAction extends Action {
         //JSPへセット
         request.setAttribute("classList", classList);
         request.setAttribute("subjectList", subjectList);
-<<<<<<< HEAD
         request.setAttribute("entYearList", entYearList);
         request.setAttribute("testList", testList);
         request.setAttribute("noList", noList);
@@ -145,15 +112,7 @@ public class TestRegistAction extends Action {
         request.setAttribute("selectedNo", noStr);
         request.setAttribute("selectedEntYear", entYearStr);
         request.setAttribute("selectedClassNum", classNum);
-=======
-        request.setAttribute("ent_year_set", entYearList);
-        request.setAttribute("testList", testList);
-        request.setAttribute("noList", noList);
-        //選択された科目と回数をJSPに渡す
-        request.setAttribute("selectedSubject", selectedSubject);
-        request.setAttribute("selectedNo", noStr);
 
->>>>>>> branch 'master' of https://github.com/oga0819/Exam.git
 
         return "test_regist.jsp";
     }
